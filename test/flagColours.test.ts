@@ -9,7 +9,8 @@ const colours = {
   ast_colour_improvement: "#555555",
   ast_colour_deterioration: "#666666",
   ast_colour_neutral_low: "#777777",
-  ast_colour_neutral_high: "#888888"
+  ast_colour_neutral_high: "#888888",
+  strat_colour_neutral: "#999999"
 };
 
 function flagged(shift: FlagDirection, ast: FlagDirection) {
@@ -24,6 +25,14 @@ describe("flag colours", () => {
     expect(flagged("improvement", "none")).toEqual({ colour: "#111111", colour_outline: "#111111" });
     expect(flagged("improvement", "neutral_high")).toEqual({ colour: "#888888", colour_outline: "#888888" });
     expect(flagged("deterioration", "none")).toEqual({ colour: "#222222", colour_outline: "#222222" });
+  });
+
+  it("ignores a flag with no colour and colours a sideless pattern", () => {
+    const aesthetics = { colour: "#000000", colour_outline: "#ffffff" };
+    applyFlagColours(aesthetics, colours, [["improvement", "shift_colour"], ["neutral", "ast_colour"]] as const);
+    expect(aesthetics.colour).toBe("#111111");
+    applyFlagColours(aesthetics, colours, [["neutral", "strat_colour"]] as const);
+    expect(aesthetics.colour).toBe("#999999");
   });
 
   it("recolours group text only where the point draws it", () => {

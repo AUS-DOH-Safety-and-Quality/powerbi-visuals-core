@@ -8,6 +8,11 @@ describe("flag direction", () => {
     expect(checkFlagDirection("none", { process_flag_type: "deterioration", improvement_direction: "neutral" })).toBe("none");
   });
 
+  it("passes a sideless pattern through unfiltered", () => {
+    expect(checkFlagDirection("neutral", { process_flag_type: "improvement", improvement_direction: "increase" })).toBe("neutral");
+    expect(checkFlagDirection("neutral", { process_flag_type: "deterioration", improvement_direction: "neutral" })).toBe("neutral");
+  });
+
   it.each([
     ["increase", "upper", "improvement"],
     ["increase", "lower", "deterioration"],

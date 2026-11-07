@@ -40,7 +40,8 @@ const flagLabels: Readonly<Record<string, string>> = {
   improvement: "Improvement",
   deterioration: "Deterioration",
   neutral_low: "Neutral (Low)",
-  neutral_high: "Neutral (High)"
+  neutral_high: "Neutral (High)",
+  neutral: "Neutral"
 };
 
 /** A hidden table before the svg; collapsed borders stay behind when the sticky header scrolls, so cells draw their own */

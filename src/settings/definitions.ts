@@ -38,6 +38,7 @@ const defaultColours = {
   deterioration: "#E46C0A",
   neutral_low: "#490092",
   neutral_high: "#490092",
+  neutral: "#490092",
   common_cause: "#A6A6A6",
   limits: "#6495ED",
   standard: "#000000",

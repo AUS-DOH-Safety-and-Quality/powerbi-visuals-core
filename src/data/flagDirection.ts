@@ -1,5 +1,5 @@
-export type OutlierStatus = "lower" | "upper" | "none";
-export type FlagDirection = "none" | "improvement" | "deterioration" | "neutral_low" | "neutral_high";
+export type OutlierStatus = "lower" | "upper" | "neutral" | "none";
+export type FlagDirection = "none" | "improvement" | "deterioration" | "neutral_low" | "neutral_high" | "neutral";
 export type ImprovementDirection = "increase" | "decrease" | "neutral";
 export type FlagType = "both" | "improvement" | "deterioration";
 export type FlagSettings = {
@@ -13,10 +13,13 @@ const directionMaps: Readonly<Record<ImprovementDirection, Readonly<Record<"lowe
   neutral: { lower: "neutral_low", upper: "neutral_high" }
 };
 
-/** Maps which limit was crossed to a change type, then filters by the type the user wants flagged */
+/**
+ * Maps which limit was crossed to a change type, then filters by the type the user wants flagged.
+ * A sideless pattern has no change type, so passes through unfiltered.
+ */
 export default function checkFlagDirection(outlierStatus: OutlierStatus, flagSettings: FlagSettings): FlagDirection {
-  if (outlierStatus === "none") {
-    return "none";
+  if (outlierStatus === "none" || outlierStatus === "neutral") {
+    return outlierStatus;
   }
   const mappedFlag = directionMaps[flagSettings.improvement_direction][outlierStatus];
   // A neutral direction has no improvement or deterioration to filter by
