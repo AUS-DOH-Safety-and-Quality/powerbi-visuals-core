@@ -24,17 +24,11 @@ jobs:
       with:
         node-version: 26.x
 
-    - name: Label visual as 'Development'
-      run: |
-        jq '.visual.name += "_DEV" | .visual.displayName += " (Dev)" | .visual.guid += "_DEV"' pbiviz.json > pbiviz.dev.json
-        mv pbiviz.dev.json pbiviz.json
-      shell: bash
-
     - name: Build
       run: |
         npm ci
-        npm install -g powerbi-visuals-tools@6.2.0
-        npm run package
+        npm install -g powerbi-visuals-tools@7.2.1
+        npm run package:dev
 
     - name: "Create Release"
       uses: "marvinpinto/action-automatic-releases@latest"
